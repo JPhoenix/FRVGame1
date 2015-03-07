@@ -31,5 +31,5 @@ void connect_to_server(){
 }
 
 void close_connection(){
-
+    close(socket_desc);
 }
