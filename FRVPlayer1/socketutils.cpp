@@ -1,4 +1,4 @@
-#include ""
+#include "socketutils.h"
 
 char gR, gN;
 
@@ -28,4 +28,8 @@ void connect_to_server(){
     {
         printf("Se pudo conectar al servidor\n");
     }
+}
+
+void close_connection(){
+
 }
