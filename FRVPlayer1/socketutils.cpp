@@ -1,13 +1,17 @@
 #include "socketutils.h"
 
-char gR, gN;
+char unsigned gR, gN;
 
 int socket_desc;
 struct sockaddr_in address;
 
-void read_answer(){
+inline void read_answer(){
     read(socket_desc,&gR,1);
     read(socket_desc,&gN,1);
+}
+
+inline void send_color(char color){
+    write(socket_desc,&color,1);
 }
 
 void connect_to_server(){

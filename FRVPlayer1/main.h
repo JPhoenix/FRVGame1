@@ -11,4 +11,6 @@
 #define DECENT 1
 #define COOL 2
 
+void prepare_algorithms();
+
 #endif
