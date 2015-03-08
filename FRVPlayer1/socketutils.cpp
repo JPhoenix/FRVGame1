@@ -5,14 +5,7 @@ char unsigned gR, gN;
 int socket_desc;
 struct sockaddr_in address;
 
-inline void read_answer(){
-    read(socket_desc,&gR,1);
-    read(socket_desc,&gN,1);
-}
 
-inline void send_color(char color){
-    write(socket_desc,&color,1);
-}
 
 void connect_to_server(){
     socket_desc = socket(AF_INET, SOCK_STREAM, 0);
@@ -25,8 +18,8 @@ void connect_to_server(){
 
     if(result == -1)
     {
-        perror("Fallo en la conexión\n");
-        return 0;
+        perror("Fallo al conectar\n");
+        return;
     }
     else
     {

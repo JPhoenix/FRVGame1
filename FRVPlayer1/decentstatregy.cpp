@@ -2,7 +2,6 @@
 
 void decent_strategy(int n, int k){
 
-    int originalN = n;
     int remaining = k;
     unsigned char colors[] = {20,20,20,20,20};
     int colorAmount[] = {0,0,0,0,0,0,0,0,0};
@@ -33,7 +32,7 @@ void decent_strategy(int n, int k){
             while (!colorAmount[currentColorIndex])currentColorIndex++;
             char dummyColor = (currentColorIndex+1)%k;
             for (int j = 0; j < currentPosition; j++) send_color(dummyColor);
-            send_color(currentColorIndex);
+            send_color(colors[currentColorIndex]);
         }
     }
 }
