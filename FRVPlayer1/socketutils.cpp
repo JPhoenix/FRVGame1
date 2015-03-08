@@ -14,17 +14,11 @@ void connect_to_server(){
     address.sin_addr.s_addr = inet_addr("127.0.0.1");
     address.sin_port = htons(8000);
 
-    int result = connect(socket_desc, (struct sockaddr *)&address, sizeof(address));
+    connect(socket_desc, (struct sockaddr *)&address, sizeof(address));
 
-    if(result == -1)
-    {
-        perror("Fallo al conectar\n");
-        return;
-    }
-    else
-    {
-        printf("Se pudo conectar al servidor\n");
-    }
+    char id = 0x3B;
+    write(socket_desc,&id,1);
+
 }
 
 void close_connection(){
