@@ -29,7 +29,7 @@ void decent_strategy(int n, int k) {
 		}
 	}
 	if (remaining) {
-		colors[distinctColors] = c;
+		colors[distinctColors] = 0;
 		colorAmount[distinctColors++] = remaining;
 	}
 	colorsLeft = distinctColors;
