@@ -3,8 +3,8 @@
 
 #include "socketutils.h"
 #include <algorithm>
+#include <string.h>
 
-inline void repeat(int k, char color);
 void decent_strategy(int n, int k);
 
 #endif

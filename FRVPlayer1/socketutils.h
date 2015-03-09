@@ -20,8 +20,4 @@ inline void read_answer(){
     read(socket_desc,&gN,1);
 }
 
-inline void send_color(unsigned char color){
-    write(socket_desc,&color,1);
-}
-
 #endif
