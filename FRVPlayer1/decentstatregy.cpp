@@ -75,8 +75,7 @@ void decent_strategy(int n, int k) {
 		end: ;
 	}
 	sort(colors,colors+distinctColors,compare_color);
-	memset(colors+currentPosition,colors->value,k-currentPosition);
-	while (currentPosition < k)	answer[currentPosition++] = colors->value;
+	memset(answer+currentPosition,colors->value,k-currentPosition);
 	write(socket_desc, answer, k);
 	read_answer();
 }
