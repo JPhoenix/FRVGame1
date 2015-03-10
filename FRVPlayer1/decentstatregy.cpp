@@ -1,6 +1,11 @@
 #include "decentstrategy.h"
 
-unsigned char colors[5];
+struct Color {
+	unsigned char value;
+	int amount;
+};
+
+Color colors[5];
 int colorAmount[5];
 unsigned char guess[5];
 unsigned char answer[5];
@@ -8,9 +13,14 @@ int remaining;
 unsigned char c;
 int distinctColors;
 int colorsLeft, currentPosition;
-int currentColorIndex;
+Color* currentColorIndex;
 unsigned char currentColor, dummyColor;
 int i;
+Color tmpColor;
+
+bool compare_color (const Color &a, const Color &b){
+	return a.amount > b.amount;
+}
 
 void decent_strategy(int n, int k) {
 	remaining = k;
@@ -23,23 +33,26 @@ void decent_strategy(int n, int k) {
 		if (gR == k)
 			return;
 		if (gR) {
-			colors[distinctColors] = c;
-			colorAmount[distinctColors++] = gR;
+			tmpColor.value = c;
+			tmpColor.amount = gR;
+			colors[distinctColors++] = tmpColor;
 			remaining -= gR;
 		}
 	}
 	if (remaining) {
-		colors[distinctColors] = 0;
-		colorAmount[distinctColors++] = remaining;
+		tmpColor.value = 0;
+		tmpColor.amount = remaining;
+		colors[distinctColors++] = tmpColor;
 	}
-	colorsLeft = distinctColors;
+	colorsLeft = distinctColors-1;
 	currentPosition = 0;
-	while (colorsLeft != 1) {
-		currentColorIndex = 0;
-		for (i = 1; i < colorsLeft; i++) {
-			while (!colorAmount[currentColorIndex])	currentColorIndex++;
-			currentColor = colors[currentColorIndex];
-			dummyColor = colors[currentColorIndex + 1];
+
+	while (colorsLeft) {
+		currentColorIndex = colors;
+		for (i = 0; i < colorsLeft; i+=2) {
+			sort(colors,colors+distinctColors,compare_color);
+			currentColor = currentColorIndex->value;
+			dummyColor = (currentColorIndex+1)->value;
 			memset(guess, dummyColor, k);
 			guess[currentPosition] = currentColor;
 			write(socket_desc, guess, k);
@@ -48,23 +61,22 @@ void decent_strategy(int n, int k) {
 				return;
 			if (!gN) {
 				answer[currentPosition++] = currentColor;
-				if (!(--colorAmount[currentColorIndex])) colorsLeft--;
+				if (!(--(currentColorIndex->amount))) colorsLeft--;
 				goto end;
 			} else if (gN == 2) {
 				answer[currentPosition++] = dummyColor;
-				if (!(--colorAmount[currentColorIndex + 1])) colorsLeft--;
+				if (!(--((currentColorIndex+1)->amount))) colorsLeft--;
 				goto end;
 			}
-			currentColorIndex++;
+			currentColorIndex+=2;
 		}
-		while (!colorAmount[currentColorIndex])	currentColorIndex++;
-		answer[currentPosition++] = colors[currentColorIndex];
-		if (!(--colorAmount[currentColorIndex])) colorsLeft--;
+		answer[currentPosition++] = (colors+colorsLeft)->value;
+		if (!(--((colors+colorsLeft)->amount))) colorsLeft--;
 		end: ;
 	}
-	currentColorIndex = 0;
-	while (!colorAmount[currentColorIndex])	currentColorIndex++;
-	while (currentPosition < k)	answer[currentPosition++] = colors[currentColorIndex];
+	sort(colors,colors+distinctColors,compare_color);
+	memset(colors+currentPosition,colors->value,k-currentPosition);
+	while (currentPosition < k)	answer[currentPosition++] = colors->value;
 	write(socket_desc, answer, k);
 	read_answer();
 }
