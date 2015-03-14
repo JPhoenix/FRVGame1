@@ -3,6 +3,7 @@
 
 #include "socketutils.h"
 #include "decentstrategy.h"
+#include "simplestrategy.h"
 
 #define N gR
 #define K gN

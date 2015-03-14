@@ -6,6 +6,7 @@ int algorithm[10][6];
 
 int main()
 {
+    crearSoluciones();
     prepare_algorithms();
     connect_to_server();
     int option;
@@ -15,9 +16,9 @@ int main()
         if (option == COOL){
             //cool algorithm
         } else if (option == DECENT) {
-        	decent_strategy(N,K);
+        	//decent_strategy(N,K);
         } else {
-            //simple algorithm
+            simplestrategy(N,K);
         }
         read_answer();
     }
@@ -32,7 +33,7 @@ void prepare_algorithms(){
         for (int k = 1; k <= 5; k++){
             if (n == 1 || k == 1 || (k <= 3 && n <= 2) || (k == 2 && n == 3)){
                 algorithm[n][k]=SIMPLE;
-            } else if (k <= 3 || (k==4 && n <= 8) || (k == 5 && n <= 6)){
+            } else if (k <= 3 || (k==4 && n <= 8) || (k == 5 && n <= 7)){
                 algorithm[n][k]=DECENT;
             } else {
                 algorithm[n][k]=COOL;
@@ -40,4 +41,3 @@ void prepare_algorithms(){
         }
     }
 }
-
