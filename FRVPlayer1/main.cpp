@@ -16,7 +16,7 @@ int main()
         if (option == COOL){
             //cool algorithm
         } else if (option == DECENT) {
-        	//decent_strategy(N,K);
+        	decent_strategy(N,K);
         } else {
             simplestrategy(N,K);
         }
