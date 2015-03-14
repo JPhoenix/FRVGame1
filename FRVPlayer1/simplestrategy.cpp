@@ -169,11 +169,17 @@ void crearSoluciones() {
 	soluciones.push_back(nueve);
 }
 
+unsigned char one_color[5];
+
 void simplestrategy(int n, int k) {
-	int n2 = n - 1;
+	//if (n == 1){
+
+	//	read_answer();
+	//}
+	n--;
 	int k2 = k - 1;
-	for (unsigned i = 0; i < soluciones[n2][k2].size(); i++) {
-		write(socket_desc, &(soluciones[n2][k2][i]), k);
+	for (unsigned i = 0; i < soluciones[n][k2].size(); i++) {
+		write(socket_desc, (char*)&(soluciones[n][k2][i][0]), k);
 		read_answer();
 		if (gR == k) {
 			return;
