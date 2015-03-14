@@ -6,7 +6,6 @@ int algorithm[10][6];
 
 int main()
 {
-    crearSoluciones();
     prepare_algorithms();
     connect_to_server();
     int option;
@@ -31,7 +30,7 @@ int main()
 void prepare_algorithms(){
     for (int n = 1; n <= 9; n++){
         for (int k = 1; k <= 5; k++){
-            if (n == 1 || k == 1 || (k <= 3 && n <= 2) || (k == 2 && n == 3)){
+            if (n == 1 || k == 1){
                 algorithm[n][k]=SIMPLE;
             } else if (k <= 3 || (k==4 && n <= 8) || (k == 5 && n <= 6)){
                 algorithm[n][k]=DECENT;
