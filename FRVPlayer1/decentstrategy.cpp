@@ -10,7 +10,6 @@ int colorAmount[5];
 unsigned char guess[5];
 unsigned char answer[5];
 int remaining;
-unsigned char c;
 int distinctColors;
 int colorsLeft, currentPosition;
 Color* currentColorIndex;
@@ -24,23 +23,21 @@ bool compare_color (const Color &a, const Color &b){
 
 void decent_strategy(int n, int k) {
 	remaining = k;
-	c = (unsigned char) n;
+	tmpColor.value = (unsigned char) n;
 	distinctColors = 0;
-	while (remaining && c-- != 1) {
-		memset(guess, c, k);
+	while (remaining && tmpColor.value-- != 1) {
+		memset(guess, tmpColor.value, k);
 		write(socket_desc, guess, k);
 		read_answer();
 		if (gR == k)
 			return;
 		if (gR) {
-			tmpColor.value = c;
 			tmpColor.amount = gR;
 			colors[distinctColors++] = tmpColor;
 			remaining -= gR;
 		}
 	}
 	if (remaining) {
-		tmpColor.value = 0;
 		tmpColor.amount = remaining;
 		colors[distinctColors++] = tmpColor;
 	}
